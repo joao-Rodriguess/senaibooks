@@ -1,6 +1,8 @@
 import Input from "../input";
 import styled from "styled-components";
 import { useState } from "react";
+import { livros } from "./dadosPesquisa";
+
 
 const PesquisaContainer = styled.section`
     background-image: linear-gradient(90deg, #002f52 32%, #326589 165%);
@@ -24,15 +26,75 @@ const Subtitulo = styled.h3`
     margin-bottom: 40px;
 `;
 
+const Container = styled.div`
+    
+`;
+
+const Resultado = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-botom: 20px;
+    cursor: pointer;
+    gap: 10px;
+    width: 300px;
+    margin: 0 auto 10px auto;
+    padding: 5px;
+    background-color: #004b75;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    transition: 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    font-size: 14px;
+   
+    p{
+        width: 200px;
+
+    }
+
+    img{
+        width: 100px;
+        height: 150px;
+        object-fit: cover;
+        margin-bottom: 10px;
+    }
+
+    &:hover{
+        border: 2px solid white;
+        border-radius: 8px;
+        padding: 5px;
+        background-color: #929292;
+        transition: 0.3s;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transform: scale(1.05);
+    }
+`;
+
 function Pesquisa() {
-    const [textoDigitado, setTextoDigitado] = useState('');
+    const [livrosPesquisados, setLivrosPesquisados] = useState([]);
+
+    console.log(livrosPesquisados);
     return (
         <PesquisaContainer>
             <Titulo>Já sabe por onde começar?</Titulo>
             <Subtitulo>Pesquise por um livro, autor ou assunto</Subtitulo>
-            <Input type="text" placeholder="O que você procura?"  onBlur={evento => setTextoDigitado(evento.target.value)}/>
+            <Input type="text" placeholder="O que você procura?"  onBlur={evento => {const textoDigitado = evento.target.value
+            const resultadoPesquisa = livros.filter(livro => livro.nome.includes(textoDigitado))
+            setLivrosPesquisados(resultadoPesquisa)
 
-            <p>{textoDigitado}</p>
+            }}/>
+
+           
+
+           {livrosPesquisados.map(livro => (
+               <Container key={livro.id}>
+                   <Resultado>
+                       <img src={livro.src} alt={livro.nome} />
+                       <p>{livro.nome}</p>
+                   </Resultado>
+               </Container>
+           ))}
         </PesquisaContainer>
     );
 }
