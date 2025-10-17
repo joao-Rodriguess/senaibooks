@@ -8,3 +8,5 @@ export const livros = [
     {nome: 'A revolução dos bichos', id: 5, src:livro},
     {nome: '1984', id: 6, src:livro}
 ];
+    
+export default livros;

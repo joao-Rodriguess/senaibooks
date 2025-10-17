@@ -5,11 +5,11 @@ import { livros } from "./dadosPesquisa";
 
 
 const PesquisaContainer = styled.section`
-    background-image: linear-gradient(90deg, #002f52 32%, #326589 165%);
+     background-image: linear-gradient(90deg, #002f52 32%, #326589 165%);
     color: white;
     text-align: center;
     padding: 85px 0;
-    height: 270px;
+    height: 500px; // Aumentei a altura para ter espaço para o scroll
     width: 100%;
 `;
 
@@ -27,7 +27,24 @@ const Subtitulo = styled.h3`
 `;
 
 const Container = styled.div`
+       max-height: 300px; // Altura máxima do container
+    overflow-y: auto; // Adiciona scroll vertical
+    padding: 0 20px;
     
+    /* Estilização da scrollbar */
+    &::-webkit-scrollbar {
+        width: 8px;
+    }
+    
+    &::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.4);
+        border-radius: 4px;
+    }
 `;
 
 const Resultado = styled.div`
@@ -86,16 +103,17 @@ function Pesquisa() {
             }}/>
 
            
-
-           {livrosPesquisados.map(livro => (
-               <Container key={livro.id}>
-                   <Resultado>
+            <Container>
+               {livrosPesquisados.map(livro => (
+                   <Resultado key={livro.id}>
                        <img src={livro.src} alt={livro.nome} />
                        <p>{livro.nome}</p>
                    </Resultado>
-               </Container>
-           ))}
+               ))}
+              </Container>
         </PesquisaContainer>
+
+        
     );
 }
 
