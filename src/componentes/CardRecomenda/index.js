@@ -44,6 +44,7 @@ const Subtitulo = styled.h4`
 
 const ImgLivro = styled.img`
     width: 150px;
+    height: 150px;
 `
 
 function CardRecomenda({titulo, subtitulo, descricao, img}){
